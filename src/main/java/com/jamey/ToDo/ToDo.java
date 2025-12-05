@@ -19,7 +19,8 @@ public class ToDo {
                         invalid();
                         return;
                     }
-                    int newId = new Add().addTask(args[1]);
+                    Add add = new Add();
+                    int newId = add.addTask(args[1]);
                     System.out.println("Successfully added task with id: " + newId);
                     break;
                 case "update":

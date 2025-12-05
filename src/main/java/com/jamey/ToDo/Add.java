@@ -5,9 +5,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
 
 public class Add {
-    private final BufferedWriter writer;
+    private BufferedWriter writer;
+    private final String jsonPath;
     public Add() throws IOException{
         String appdata = System.getenv("APPDATA");
         String folder = appdata + File.separator + "ToDoCLI";
@@ -21,13 +26,38 @@ public class Add {
             System.out.println("done it");
             temp.close();
         }
+        this.jsonPath = jsonPath;
 
-        writer = new BufferedWriter(new FileWriter(jsonPath));
     }
     public int addTask(String task) throws IOException{
+        String json = Files.readString(new File(jsonPath).toPath());
+        System.out.println(json);
+        Gson gson = new Gson();
+        Task tasks[] = gson.fromJson(json, Task[].class);
+        List<Task> listOfTasks = new ArrayList<>();
+        if(tasks != null){
+            for(Task todo : tasks){
+                listOfTasks.add(todo);
+            }   
+        }
+        if(!listOfTasks.isEmpty()){
+            Task.lastId = listOfTasks.get(listOfTasks.size() - 1).getId();
+        }
         Task newTask = new Task(task);
-        String jsonTask = newTask.toJson();
-        writer.append(jsonTask);
+        listOfTasks.add(newTask);
+
+        writer = new BufferedWriter(new FileWriter(jsonPath));
+        writer.write("[");
+        for(int i = 0; i < listOfTasks.size(); i++){
+            String jsonTask = listOfTasks.get(i).toJson();
+            writer.write(jsonTask);
+            if(i != listOfTasks.size() - 1){
+                writer.write(",");
+            }
+        }
+        writer.write("]");
+        // String jsonTask = newTask.toJson();
+        // writer.append(jsonTask);
         writer.close();
         return newTask.getId();
     }

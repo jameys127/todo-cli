@@ -4,44 +4,45 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
-    private static int lastId = 0;
+    public static int lastId = 0;
     private int id;
     private String description;
     private Status status;
     private String createdAt;
-    private String updtatedAt;
+    private String updatedAt;
+
+    public Task() {}
 
     public Task(String description){
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter nowFormatted = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = now.format(nowFormatted);
 
-        this.id = lastId++;
+        this.id = ++lastId;
         this.description = description;
         this.status = Status.TODO;
         this.createdAt = formattedDate;
-        this.updtatedAt = formattedDate;
+        this.updatedAt = formattedDate;
     }
 
     public String toJson(){
-        return "{ \"id\": \"" + id + "\", \"description\": \"" + description + "\", \"status\": \"" + status.getStatus() + "\", \"createdAt\": \"" + createdAt + "\", \"updatedAt\": \"" + updtatedAt + "\" }";
+        return "{ \"id\": \"" + id + "\", \"description\": \"" + description + "\", \"status\": \"" + status + "\", \"createdAt\": \"" + createdAt + "\", \"updatedAt\": \"" + updatedAt + "\" }";
     }
 
     public int getId() {
         return id;
     }
 
-    public String getStatus() {
-        return status.getStatus();
+    public Status getStatus() {
+        return status;
     }
 
     public String getCreatedAt() {
         return createdAt;
     }
 
-    public String getUpdtatedAt() {
-        return updtatedAt;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
-
 
 }
