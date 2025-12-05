@@ -20,12 +20,21 @@ public class ToDo {
                         return;
                     }
                     Add add = new Add();
-                    int newId = add.addTask(args[1]);
-                    System.out.println("Successfully added task with id: " + newId);
+                    add.addTask(args[1]);
                     break;
                 case "update":
                     break;
                 case "delete":
+                    if(args.length >= 3){
+                        invalid();
+                        return;
+                    }
+                    Delete delete = new Delete();
+                    // try{
+                        delete.deleteTask(Integer.parseInt(args[1]));
+                    // }catch(Exception e){
+                    //     invalid();
+                    // }
                     break;
                 case "list":
                     break;

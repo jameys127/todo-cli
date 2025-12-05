@@ -23,15 +23,13 @@ public class Add {
         if(!Files.exists(new File(jsonPath).toPath())){
             BufferedWriter temp = new BufferedWriter(new FileWriter(jsonPath));
             temp.write("[]");
-            System.out.println("done it");
             temp.close();
         }
         this.jsonPath = jsonPath;
 
     }
-    public int addTask(String task) throws IOException{
+    public void addTask(String task) throws IOException{
         String json = Files.readString(new File(jsonPath).toPath());
-        System.out.println(json);
         Gson gson = new Gson();
         Task tasks[] = gson.fromJson(json, Task[].class);
         List<Task> listOfTasks = new ArrayList<>();
@@ -56,9 +54,7 @@ public class Add {
             }
         }
         writer.write("]");
-        // String jsonTask = newTask.toJson();
-        // writer.append(jsonTask);
         writer.close();
-        return newTask.getId();
+        System.out.println("Successfully added task with id: " + newTask.getId());
     }
 }
