@@ -1,15 +1,26 @@
 package com.jamey.ToDo;
 
+import java.io.IOException;
+
 public class ToDo {
-    public static void main(String[] args) {
+    public static int lastId;
+    public static void main(String[] args) throws IOException {
         if( ( args.length < 2 && (!args[0].equals("list") && !args[0].equals("help")) ) || (args.length > 4)){
             invalid();
         }else{
             switch (args[0]){
                 case "help":
+                    System.out.println(lastId);
+                    lastId++;
                     usage();
                     break;
                 case "add":
+                    if(args.length >= 3){
+                        invalid();
+                        return;
+                    }
+                    int newId = new Add().addTask(args[1]);
+                    System.out.println("Successfully added task with id: " + newId);
                     break;
                 case "update":
                     break;
