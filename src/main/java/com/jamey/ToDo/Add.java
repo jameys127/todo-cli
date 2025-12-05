@@ -55,6 +55,6 @@ public class Add {
         }
         writer.write("]");
         writer.close();
-        System.out.println("Successfully added task with id: " + newTask.getId());
+        System.out.println("\nSuccessfully added task with id: " + newTask.getId() + "\n");
     }
 }

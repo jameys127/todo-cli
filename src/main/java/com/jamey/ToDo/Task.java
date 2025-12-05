@@ -44,5 +44,12 @@ public class Task {
     public String getUpdatedAt() {
         return updatedAt;
     }
+    public void setDescription(String newDescription){
+        description = newDescription;
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDateTime = now.format(format);
+        updatedAt = formattedDateTime;
+    }
 
 }

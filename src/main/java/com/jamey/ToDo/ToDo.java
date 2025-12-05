@@ -23,6 +23,16 @@ public class ToDo {
                     add.addTask(args[1]);
                     break;
                 case "update":
+                    if(args.length >= 4 || args.length <= 2){
+                        invalid();
+                        return;
+                    }
+                    Update update = new Update();
+                    try{
+                        update.updateTask(Integer.parseInt(args[1]), args[2]);
+                    }catch(NumberFormatException e){
+                        invalid();
+                    }
                     break;
                 case "delete":
                     if(args.length >= 3){
@@ -30,11 +40,11 @@ public class ToDo {
                         return;
                     }
                     Delete delete = new Delete();
-                    // try{
+                    try{
                         delete.deleteTask(Integer.parseInt(args[1]));
-                    // }catch(Exception e){
-                    //     invalid();
-                    // }
+                    }catch(NumberFormatException e){
+                        invalid();
+                    }
                     break;
                 case "list":
                     break;

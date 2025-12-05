@@ -21,12 +21,12 @@ public class Delete {
     }
     public void deleteTask(int id) throws IOException{
         if(!Files.exists(new File(jsonPath).toPath())){
-            System.out.println("JSON file does not exist");
+            System.out.println("\nJSON file does not exist\n");
             return;
         }
         String json = Files.readString(new File(jsonPath).toPath());
         if(json.isEmpty() || json.equals("[]") || json == null){
-            System.out.println("Currently 0 tasks in file");
+            System.out.println("\nCurrently 0 tasks in file\n");
             return;
         }
         Gson gson = new Gson();
@@ -51,11 +51,11 @@ public class Delete {
                 }
                 writer.write("]");
                 writer.close();
-                System.out.println("Successfully deleted task with id: " + id);
+                System.out.println("\nSuccessfully deleted task with id: " + id + "\n");
                 return;
             }
         }
-        System.out.println("No such task with id: " + id);
+        System.out.println("\nNo such task with id: " + id + "\n");
 
     }
 }
