@@ -41,6 +41,10 @@ public class Task {
         return createdAt;
     }
 
+    public String getDescription(){
+        return description;
+    }
+
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -50,6 +54,12 @@ public class Task {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDateTime = now.format(format);
         updatedAt = formattedDateTime;
+    }
+    public void setStatusInProgress(){
+        status = Status.IN_PROGRESS;
+    }
+    public void setStatusDone(){
+        status = Status.DONE;
     }
 
 }

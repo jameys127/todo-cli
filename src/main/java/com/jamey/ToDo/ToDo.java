@@ -9,11 +9,13 @@ public class ToDo {
             invalid();
         }else{
             switch (args[0]){
+
                 case "help":
                     System.out.println(lastId);
                     lastId++;
                     usage();
                     break;
+
                 case "add":
                     if(args.length >= 3){
                         invalid();
@@ -22,6 +24,7 @@ public class ToDo {
                     Add add = new Add();
                     add.addTask(args[1]);
                     break;
+
                 case "update":
                     if(args.length >= 4 || args.length <= 2){
                         invalid();
@@ -34,6 +37,7 @@ public class ToDo {
                         invalid();
                     }
                     break;
+
                 case "delete":
                     if(args.length >= 3){
                         invalid();
@@ -46,12 +50,51 @@ public class ToDo {
                         invalid();
                     }
                     break;
+
                 case "list":
+                    if(args.length == 1){
+                        ListTask list = new ListTask();
+                        list.listAll();
+                    }else if(args.length == 2 && args[1].equals("done")){
+                        ListTask list = new ListTask();
+                        list.listDone();
+                    }else if(args.length == 2 && args[1].equals("in-progress")){
+                        ListTask list = new ListTask();
+                        list.listInProgress();
+                    }else if(args.length == 2 && args[1].equals("todo")){
+                        ListTask list = new ListTask();
+                        list.listToDo();
+                    }else{
+                        invalid();
+                    }
                     break;
+
                 case "mark-done":
+                    if(args.length >= 3){
+                        invalid();
+                        return;
+                    }
+                    Mark mark = new Mark();
+                    try{
+                        mark.markDone(Integer.parseInt(args[1]));
+                    }catch(NumberFormatException e){
+                        invalid();
+                    }
                     break;
+
                 case "mark-in-progress":
+                    if(args.length >= 3){
+                        invalid();
+                        return;
+                    }
+                    Mark mark2 = new Mark();
+                    try{
+                        mark2.markInProgress(Integer.parseInt(args[1]));
+                    }catch(NumberFormatException e){
+                        invalid();
+                    }
                     break;
+                    
                 default:
                     invalid();
             }
